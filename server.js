@@ -15,7 +15,11 @@ process.on("uncaughtException", (err) => {
 });
 dotenv.config();
 // Connect the database
-connectDatabase();
+connectDatabase().then(() => {
+  app.listen(process.env.PORT, () => {
+    console.log("listening for requests");
+  });
+});
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
